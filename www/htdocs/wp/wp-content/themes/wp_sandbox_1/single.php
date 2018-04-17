@@ -7,7 +7,7 @@ if ( have_posts() ) :
   while ( have_posts() ) : the_post();
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class('article_1'); ?>>
+<article id="article" <?php post_class('article_1'); ?>>
   
   <header class="header_1">
     <h1 class="header_1__h1">
@@ -23,17 +23,17 @@ if ( have_posts() ) :
             年齢
           </th>
           <td class="table_1__td">
-            <label><input type="radio" name="age" value="0_10"> 0〜10</label>
-            <label><input type="radio" name="age" value="11_20"> 11〜20</label>
-            <label><input type="radio" name="age" value="21_30"> 21〜30</label>
-            <label><input type="radio" name="age" value="31_40"> 31〜40</label>
-            <label><input type="radio" name="age" value="41_50"> 41〜50</label>
-            <label><input type="radio" name="age" value="51_60"> 51〜60</label>
-            <label><input type="radio" name="age" value="61_70"> 61〜70</label>
-            <label><input type="radio" name="age" value="71_80"> 71〜80</label>
-            <label><input type="radio" name="age" value="81_90"> 81〜90</label>
-            <label><input type="radio" name="age" value="91_100"> 91〜100</label>
-            <label><input type="radio" name="age" value="101"> 101以上</label>
+            <label><input type="radio" value="0_10" v-model="age"> 0〜10</label>
+            <label><input type="radio" value="11_20" v-model="age"> 11〜20</label>
+            <label><input type="radio" value="21_30" v-model="age"> 21〜30</label>
+            <label><input type="radio" value="31_40" v-model="age"> 31〜40</label>
+            <label><input type="radio" value="41_50" v-model="age"> 41〜50</label>
+            <label><input type="radio" value="51_60" v-model="age"> 51〜60</label>
+            <label><input type="radio" value="61_70" v-model="age"> 61〜70</label>
+            <label><input type="radio" value="71_80" v-model="age"> 71〜80</label>
+            <label><input type="radio" value="81_90" v-model="age"> 81〜90</label>
+            <label><input type="radio" value="91_100" v-model="age"> 91〜100</label>
+            <label><input type="radio" value="101" v-model="age"> 101以上</label>
           </td>
         </tr>
         <tr id="sex" class="table_1__tr">
@@ -41,9 +41,9 @@ if ( have_posts() ) :
             性別
           </th>
           <td class="table_1__td">
-            <label><input type="radio" name="sex" value="man"> 男</label>
-            <label><input type="radio" name="sex" value="woman"> 女</label>
-            <label><input type="radio" name="sex" value="other"> その他</label>
+            <label><input type="radio" value="男" v-model="sex"> 男</label>
+            <label><input type="radio" value="女" v-model="sex"> 女</label>
+            <label><input type="radio" value="その他" v-model="sex"> その他</label>
           </td>
         </tr>
         <tr id="hobby" class="table_1__tr">
@@ -51,18 +51,24 @@ if ( have_posts() ) :
             趣味
           </th>
           <td class="table_1__td">
-            
-            <input type="checkbox" id="checkbox" v-model="checked">
-            <label for="checkbox">{{ checked }}</label>
-            
-            <label><input type="checkbox" name="hobby[]" value="ゲーム" v-model="checked"> ゲーム</label>
-            <label><input type="checkbox" name="hobby[]" value="音楽" v-model="checked"> 音楽</label>
-            <label><input type="checkbox" name="hobby[]" value="山登り" v-model="checked"> 山登り</label>
+            <label><input type="checkbox" value="ゲーム" v-model="hobby"> ゲーム</label>
+            <label><input type="checkbox" value="音楽" v-model="hobby"> 音楽</label>
+            <label><input type="checkbox" value="山登り" v-model="hobby"> 山登り</label>
           </td>
         </tr>
       </tbody>
     </table><!-- /.table_1 -->
   </div><!-- /.div_1 -->
+  
+  <hr>
+  
+  <ul>
+    <li>{{ age }}</li>
+    <li>{{ sex }}</li>
+    <li>{{ hobby }}</li>
+  </ul>
+  
+  <hr>
   
   single.php
   
@@ -89,24 +95,26 @@ if ( have_posts() ) :
       //var_dump( $members );
       foreach ( $members as $member ) :
       ?>
-      <tr class="table_2__tr">
-        <th class="table_2__th">
-          <?php echo $member['name']; ?>
-        </th>
-        <td class="table_2__td">
-          <?php echo $member['age']; ?>
-        </td>
-        <td class="table_2__td">
-          <?php echo $member['sex']; ?>
-        </td>
-        <td class="table_2__td">
-          <?php
-          foreach ( $member['hobby'] as $hobby ) :
-            echo $hobby . " ";
-          endforeach;
-          ?>
-        </td>
-      </tr>
+      <template v-if="sex === '<?php echo $member['sex']; ?>'">
+        <tr class="table_2__tr">
+          <th class="table_2__th">
+            <?php echo $member['name']; ?>
+          </th>
+          <td class="table_2__td">
+            <?php echo $member['age']; ?>
+          </td>
+          <td class="table_2__td">
+            <?php echo $member['sex']; ?>
+          </td>
+          <td class="table_2__td">
+            <?php
+            foreach ( $member['hobby'] as $hobby ) :
+              echo $hobby . " ";
+            endforeach;
+            ?>
+          </td>
+        </tr>
+      </template>
       <?php
       endforeach;
       ?>

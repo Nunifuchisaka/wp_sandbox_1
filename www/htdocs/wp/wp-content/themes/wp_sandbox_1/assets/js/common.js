@@ -51,9 +51,30 @@ $(function(){
   
   
   new Vue({
-    el: "#hobby",
+    el: "#article",
     data: {
-      checkedNames: []
+      age: [],
+      sex: "",
+      hobby: []
+    },
+    created: function () {
+      console.log("created");
+    },
+    method: function () {
+      console.log("method");
+    },
+    beforeUpdate: function(){
+      console.log("beforeUpdate");
+    },
+    updated: function (a,b,c) {
+      var self = this;
+      this.$nextTick(function () {
+        console.group("updated");
+        //console.log(self);
+        self.age = age_hoge(self.age);
+        console.log("age", self.age, age);
+        console.groupEnd();
+      });
     }
   });
   
@@ -61,6 +82,15 @@ $(function(){
   new COMMON.SmoothScroll();
   
 });
+
+
+function age_hoge(age){
+  console.group("age_hoge");
+  console.log(age);
+  age = age.split("_");
+  console.groupEnd();
+  return age;
+}
 
 
 })(jQuery, this, this.document);
