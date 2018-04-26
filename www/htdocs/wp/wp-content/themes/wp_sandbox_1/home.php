@@ -1,13 +1,10 @@
-<?php get_header(); ?>
+<?php
+get_header();
 
-<div class="l_container_1">
+if ( is_user_logged_in() ) {
+  get_template_part( 'content', 'index' );
+} else {
+  get_template_part( 'content', 'login' );
+}
 
-
-
-
-
-
-
-</div><!-- /.l_container_1 -->
-
-<?php get_footer();
+get_footer();

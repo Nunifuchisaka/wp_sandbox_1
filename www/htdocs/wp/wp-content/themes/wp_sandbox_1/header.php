@@ -1,4 +1,8 @@
-<!DOCTYPE html>
+<?php
+if ( !is_home() && !is_user_logged_in() ) {
+ wp_redirect( home_url() );
+}
+?><!DOCTYPE html>
 <html <?php language_attributes(); ?> prefix="og: http://ogp.me/ns#">
 <head>
 <meta charset="<?php bloginfo('charset'); ?>">

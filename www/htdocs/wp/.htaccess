@@ -1,4 +1,8 @@
 
+
+#SITEGUARD_PLUGIN_SETTINGS_START
+#SITEGUARD_PLUGIN_SETTINGS_END
+
 # BEGIN WordPress
 <IfModule mod_rewrite.c>
 RewriteEngine On

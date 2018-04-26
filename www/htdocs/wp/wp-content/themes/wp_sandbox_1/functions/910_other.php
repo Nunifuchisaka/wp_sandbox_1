@@ -136,3 +136,47 @@ function media_script_buffer_get() {
 }
 add_action( 'print_media_templates', 'media_script_buffer_get' );
 
+
+
+
+
+function my_check_login() {
+  global $current_user;
+  
+  get_currentuserinfo();
+  extract($current_user->wp_capabilities);
+  if ($subscriber) {
+    wp_redirect(get_bloginfo('url'));
+  }
+}
+
+add_action('admin_init', 'my_check_login');
+
+
+
+/*
+## ログイン周り
+*/
+
+add_filter( 'show_admin_bar', '__return_false' );
+function my_function_admin_bar ( $content ) {
+  return ( current_user_can('administrator') ) ? $content : false;
+}
+add_filter( 'show_admin_bar' , 'my_function_admin_bar');
+
+//
+add_action('wp_login', 'redirect_page', 10, 2);
+function redirect_page ( $user_login, $user ) {
+  $user_role = $user->roles[0];
+  if ( 'subscriber' == $user_role ) {
+    wp_redirect( get_home_url() );
+    exit();
+  }
+}
+
+//
+add_action('wp_logout','redirect_logout_page');
+function redirect_logout_page(){
+  wp_safe_redirect( get_home_url() );
+  exit();
+}

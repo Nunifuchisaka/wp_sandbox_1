@@ -1,6 +1,9 @@
 <?php get_header(); ?>
 
 <div class="l_container_1">
+  
+  index.php
+  
 
 <?php
 if ( have_posts() ) :
