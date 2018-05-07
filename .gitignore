@@ -5,6 +5,7 @@ Thumbs.db
 /gitignore/
 .sass-cache/
 /node_modules/
+/package-lock.json
 
 ## WordPress
 www/htdocs/wp/*.log
